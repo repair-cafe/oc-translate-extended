@@ -14,8 +14,8 @@ class ExtendedLocalePicker extends ComponentBase
     public function componentDetails()
     {
         return [
-            'name'        => 'ExtendedLocalePicker Component',
-            'description' => 'No description provided yet...'
+            'name'        => 'Extended Locale Picker',
+            'description' => 'excodus.translateextended::lang.strings.localepicker_desc'
         ];
     }
 

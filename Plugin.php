@@ -19,7 +19,7 @@ class Plugin extends PluginBase
             'name'        => 'Translate Extended',
             'description' => 'excodus.translateextended::lang.strings.plugin_desc',
             'author'      => 'Excodus',
-            'icon'        => 'icon-leaf',
+            'icon'        => 'icon-language',
             'homepage'    => 'https://github.com/Excodus/oc-translate-extended'
         ];
     }
