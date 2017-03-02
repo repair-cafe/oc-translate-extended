@@ -1,16 +1,11 @@
 <?php namespace Excodus\TranslateExtended\Components;
 
 use Cms\Classes\ComponentBase;
+use RainLab\Translate\Components\LocalePicker;
 use RainLab\Translate\Models\Locale as LocaleModel;
-use RainLab\Translate\Classes\Translator;
 
-class ExtendedLocalePicker extends ComponentBase
+class ExtendedLocalePicker extends LocalePicker
 {
-    private $translator;
-
-    public $locales;
-    public $activeLocale;
-
     public function componentDetails()
     {
         return [
@@ -33,10 +28,16 @@ class ExtendedLocalePicker extends ComponentBase
     {
         $this->page['activeLocale'] = $this->activeLocale = $this->translator->getLocale();
         $this->page['locales'] = $this->locales = LocaleModel::listEnabled();
-        $currentPath = $this->getRouter()->getUrl();
-        if($currentPath[0] != '/') {
-            $currentPath = '/' . $currentPath;
+        $this->page['localeLinks'] = $this->makeLinks($this->locales);
+    }
+
+    public function makeLinks($locales)
+    {
+        $links = [];
+        foreach ($locales as $key => $locale) {
+            $links[$key] = $this->makeLocaleUrlFromPage($key);
         }
-        $this->page['currentPath'] = $currentPath;
+
+        return $links;
     }
 }
