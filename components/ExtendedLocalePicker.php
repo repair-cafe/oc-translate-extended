@@ -3,6 +3,7 @@
 use Cms\Classes\ComponentBase;
 use RainLab\Translate\Components\LocalePicker;
 use RainLab\Translate\Models\Locale as LocaleModel;
+use RainLab\Translate\Classes\Translator;
 
 class ExtendedLocalePicker extends LocalePicker
 {
