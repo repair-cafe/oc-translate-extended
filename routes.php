@@ -65,14 +65,14 @@ App::before(function($request) {
     }
 
     if(Settings::get('route_prefixing', true)) {
-        Route::group(['prefix' => $locale], function() {
+        Route::group(['prefix' => $locale, 'middleware' => 'web'], function() {
             Route::any('{slug}', 'Cms\Classes\CmsController@run')->where('slug', '(.*)?');
         });
 
-        Route::any($locale, 'Cms\Classes\CmsController@run');
+        Route::any($locale, 'Cms\Classes\CmsController@run')->middleware('web');
 
         Event::listen('cms.route', function() use ($locale) {
-            Route::group(['prefix' => $locale], function() {
+            Route::group(['prefix' => $locale, 'middleware' => 'web'], function() {
                 Route::any('{slug}', 'Cms\Classes\CmsController@run')->where('slug', '(.*)?');
             });
         });
@@ -144,7 +144,7 @@ function findMatches($accepted, $available) {
 
 
 /**
- * compare two language tags and distinguish the degree of matching 
+ * compare two language tags and distinguish the degree of matching
  * edit: actually matching "en-us" with "en" will always return "1"
  * @param $a [] user-accepted
  * @param $b [] backend-available
