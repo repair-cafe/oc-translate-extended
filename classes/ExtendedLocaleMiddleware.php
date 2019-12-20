@@ -29,11 +29,10 @@ class ExtendedLocaleMiddleware
         * TODO: hook the translate plugin's onSwitchLocale ajax handler instead of checking on post
         */
 
-        $locale = 
-            $this->localeFromPost() ?: 
-            $this->localeFromURL() ?:
-            $this->localeFromSession() ?:
-            $this->localeFromBrowser();
+        $this->localeFromPost() ?: 
+        $this->localeFromURL() ?:
+        $this->localeFromSession() ?:
+        $this->localeFromBrowser();
 
         return $next($request);
     }
@@ -46,6 +45,13 @@ class ExtendedLocaleMiddleware
 
     private function localeFromPost()
     {
+        if(!post('locale')){
+            return null;
+        }
+        
+        $translator = Translator::instance();
+        $translator->setLocale(post('locale'));
+
         return post('locale');
     }
 
